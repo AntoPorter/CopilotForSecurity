@@ -113,11 +113,8 @@
 ```
 
 ### Benefits of Using Template Specs
-- You use standard ARM templates for your template spec.
-- You manage access through Azure RBAC, rather than SAS tokens.
-- Users can deploy the template spec without having write access to the template.
-  - Users only need read access to the template spec to deploy its template, so you can share the template without allowing others to modify it.
-- You can integrate the template spec into existing deployment process, such as PowerShell script or DevOps pipeline.
-- Template specs enable you to create canonical templates and share them with teams in your organization.
-- The template specs are secure because they’re available to Azure Resource Manager for deployment, but not accessible to users without the correct permission.
+1. **Standardization**: You can use standard ARM templates for your template spec, ensuring consistency across deployments.
+2. **Access Management**: Instead of using SAS tokens, you manage access through Azure RBAC (Role-Based Access Control). Users can deploy the template spec without needing write access to the template itself.
+3. **Integration**: You can seamlessly integrate the template spec into existing deployment processes, such as PowerShell scripts or DevOps pipelines.
+4. **Sharing and Collaboration**: Template specs allow you to create canonical templates and share them with teams in your organization. They're secure because they're available for deployment by Azure Resource Manager, but not directly accessible to users without the correct permissions .
 
