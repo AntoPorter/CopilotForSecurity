@@ -39,7 +39,7 @@ This prompt can help you reconstruct the timeline of attacker activity for a spe
 ## Similar Incidents
 > "Show me similar incidents to incident ID 12345."
 
-This prompt can show you a collection of up to 20 other incidents that most closely resemble the current incident.
+This prompt can show you a collection of incidents that most closely resemble the current incident.
 
 ## Incident Severity
 > "List all incidents with high severity in the past week."
