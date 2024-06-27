@@ -15,7 +15,7 @@ Defender XDR:
 Example of Prompt Format:
 > WorkspaceName:*workspace*, SubscriptionName:*Subscription*, ResourceGroupName:*Workspace*, Request:*In Microsoft Sentinel show me detailed information for incident ID 12345*.
 
-If you wish for a Table of Contents to be generated based on information tou are collecting through prompts, Specify the Table Column Headings and the information you would like included into those columns.
+If you wish for a Table of Contents to be generated based on information you are collecting through prompts, Specify the Table Column Headings and the information you would like included into those columns.
 
 For additional prompting Tips and Samples, please review the following resources: 
 - [Prompting Tips for Copilot for Security](https://github.com/Azure/Copilot-For-Security/tree/main/Customer%20Guides/Prompting%20Tips%20for%20Copilot%20For%20Security)
