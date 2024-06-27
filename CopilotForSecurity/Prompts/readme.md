@@ -1,6 +1,6 @@
 # Copilot for Security - Report Prompting
 
-Where possible when retrieving information from Sentinel and Defender XDR, specify the following details (if possible):
+Where possible when retrieving information from Sentinel and Defender XDR, specify the following details:
 
 Microsoft Sentinel:
 - Tenant ID
@@ -13,7 +13,13 @@ Defender XDR:
 - Defender Incident / Alert ID
 
 Example of Prompt Format:
-> WorkspaceName:*workspace* SubscriptionName:*Subscription* ResourceGroupName:*Workspace* Request:*Show me detailed information for incident ID 12345*.
+> WorkspaceName:*workspace*, SubscriptionName:*Subscription*, ResourceGroupName:*Workspace*, Request:*In Microsoft Sentinel show me detailed information for incident ID 12345*.
+
+If you wish for a Table of Contents to be generated based on information tou are collecting through prompts, Specify the Table Column Headings and the information you would like included into those columns.
+
+For additional prompting Tips and Samples, please review the following resources: 
+- [Prompting Tips for Copilot for Security](https://github.com/Azure/Copilot-For-Security/tree/main/Customer%20Guides/Prompting%20Tips%20for%20Copilot%20For%20Security)
+- [Promptbook Samples](https://github.com/Azure/Copilot-For-Security/tree/main/Promptbook%20samples)
 
 ## Incident Details
 > "Show me detailed information for incident ID 12345."
@@ -45,6 +51,10 @@ This prompt can help you prioritize incidents based on their severity.
 
 This prompt can help you keep track of incidents that are currently being investigated.
 
+## Incident Investigation
+> "Give me a summary of all security incidents in the last quarter."
+
+This prompt can help you generate an Incident Investigation report, which can provide a comprehensive view of all security incidents.
 
 # Examples of Prompts for Reporting
 The following prompt suggestions are based around potential reporting capabilities via Copilot for Security.
@@ -65,11 +75,6 @@ This prompt can help you generate a report on file access attempts, which can be
 > "Show me all the password change events in the last month."
 
 This prompt can help you generate a report on password change events, which can be useful in tracking any unauthorized attempts to change passwords.
-
-## Incident Investigation
-> "Give me a summary of all security incidents in the last quarter."
-
-This prompt can help you generate an Incident Investigation report, which can provide a comprehensive view of all security incidents.
 
 ## Threat Detection
 > "Show me all the detected threats in the last 30 days."
