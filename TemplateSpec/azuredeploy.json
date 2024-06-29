@@ -1,0 +1,55 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "capacityName": {
+            "type": "string",
+            "defaultValue": "copilotcompute"
+        },
+        "location": {
+            "type": "string",
+            "defaultValue": "australiaeast",
+            "allowedValues": [
+                "australiaeast",
+                "eastus",
+                "westeurope",
+                "uksouth"
+            ]
+        },
+        "numberOfUnits": {
+            "type": "int",
+            "defaultValue": 1
+        },
+        "crossGeoCompute": {
+            "type": "string",
+            "defaultValue": "NotAllowed",
+            "allowedValues": [
+                "NotAllowed",
+                "Allowed"
+            ]
+        },
+        "geo": {
+            "type": "string",
+            "defaultValue": "ANZ",
+            "allowedValues": [
+                "ANZ",
+                "US",
+                "UK",
+                "EU"
+            ]
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "2023-12-01-preview",
+            "name": "[parameters('capacityName')]",
+            "location": "[parameters('location')]",
+            "type": "Microsoft.SecurityCopilot/capacities",
+            "properties": {
+                "numberOfUnits": "[parameters('numberOfUnits')]",
+                "crossGeoCompute": "[parameters('crossGeoCompute')]",
+                "geo": "[parameters('geo')]"
+            }
+        }
+    ]
+}
