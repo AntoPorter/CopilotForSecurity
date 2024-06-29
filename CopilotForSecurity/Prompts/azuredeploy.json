@@ -1,0 +1,340 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "workflows_Report_Copilot_name": {
+            "defaultValue": "Report-Copilot",
+            "type": "String"
+        },
+        "connections_Office365_Report_Copilot_name": {
+            "defaultValue": "Office365-Report-Copilot",
+            "type": "String"
+        },
+        "connections_Securitycopilot_Report_Copilot_name": {
+            "defaultValue": "Securitycopilot-Report-Copilot",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Web/connections",
+            "apiVersion": "2016-06-01",
+            "name": "[parameters('connections_Office365_Report_Copilot_name')]",
+            "location": "australiaeast",
+            "kind": "V1",
+            "properties": {
+                "displayName": "Office365-Report-Copilot",
+                "statuses": [
+                    {
+                        "status": "Connected"
+                    }
+                ],
+                "customParameterValues": {},
+                "nonSecretParameterValues": {},
+                "createdTime": "2024-06-27T01:08:47.3126811Z",
+                "changedTime": "2024-06-29T00:33:43.631793Z",
+                "api": {
+                    "name": "office365",
+                    "displayName": "Office 365 Outlook",
+                    "description": "Microsoft Office 365 is a cloud-based service that is designed to help meet your organization's needs for robust security, reliability, and user productivity.",
+                    "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1686/1.0.1686.3706/office365/icon.png",
+                    "brandColor": "#0078D4",
+                    "id": "/subscriptions/43c8298f-fa11-4cab-8e6f-7f4ba78ab52e/providers/Microsoft.Web/locations/australiaeast/managedApis/office365",
+                    "type": "Microsoft.Web/locations/managedApis"
+                },
+                "testLinks": [
+                    {
+                        "requestUri": "[concat('https://management.azure.com:443/subscriptions/43c8298f-fa11-4cab-8e6f-7f4ba78ab52e/resourceGroups/rg-copilotforsecurity-prd-aue-01/providers/Microsoft.Web/connections/', parameters('connections_Office365_Report_Copilot_name'), '/extensions/proxy/testconnection?api-version=2016-06-01')]",
+                        "method": "get"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "Microsoft.Web/connections",
+            "apiVersion": "2016-06-01",
+            "name": "[parameters('connections_Securitycopilot_Report_Copilot_name')]",
+            "location": "australiaeast",
+            "kind": "V1",
+            "properties": {
+                "displayName": "Securitycopilot-Report-Copilot",
+                "statuses": [
+                    {
+                        "status": "Connected"
+                    }
+                ],
+                "customParameterValues": {},
+                "nonSecretParameterValues": {},
+                "createdTime": "2024-06-27T01:08:47.2662611Z",
+                "changedTime": "2024-06-29T00:33:27.4815976Z",
+                "api": {
+                    "name": "securitycopilot",
+                    "displayName": "Microsoft Copilot for Security",
+                    "description": "A generative AI-powered assistant for daily operations in security and IT. AI-generated content may contain mistakes. Check responses for accuracy.",
+                    "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1694/1.0.1694.3752/securitycopilot/icon.png",
+                    "brandColor": "#0072C6",
+                    "id": "/subscriptions/43c8298f-fa11-4cab-8e6f-7f4ba78ab52e/providers/Microsoft.Web/locations/australiaeast/managedApis/securitycopilot",
+                    "type": "Microsoft.Web/locations/managedApis"
+                },
+                "testLinks": []
+            }
+        },
+        {
+            "type": "Microsoft.Logic/workflows",
+            "apiVersion": "2017-07-01",
+            "name": "[parameters('workflows_Report_Copilot_name')]",
+            "location": "australiaeast",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/connections', parameters('connections_Securitycopilot_Report_Copilot_name'))]",
+                "[resourceId('Microsoft.Web/connections', parameters('connections_Office365_Report_Copilot_name'))]"
+            ],
+            "tags": {
+                "Created By": "Anthony Porter",
+                "CreatedDate": "06/27/2024 9:00:01 AM",
+                "CreatorUPN": "portera",
+                "hidden-SentinelTemplateName": "Satalyst-MonthyReport-Copilot",
+                "hidden-SentinelTemplateVersion": "1.0"
+            },
+            "identity": {
+                "type": "SystemAssigned"
+            },
+            "properties": {
+                "state": "Disabled",
+                "definition": {
+                    "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+                    "contentVersion": "1.0.0.0",
+                    "parameters": {
+                        "email": {
+                            "defaultValue": "-",
+                            "type": "String"
+                        },
+                        "SentinelWorkspaceName": {
+                            "defaultValue": "-",
+                            "type": "String"
+                        },
+                        "SubscriptionName": {
+                            "defaultValue": "-",
+                            "type": "String"
+                        },
+                        "ResourceGroupName": {
+                            "defaultValue": "-",
+                            "type": "String"
+                        },
+                        "AzureADTenantID": {
+                            "defaultValue": "-",
+                            "type": "String"
+                        },
+                        "OrganisationName": {
+                            "defaultValue": "-",
+                            "type": "String"
+                        },
+                        "Prompt1": {
+                            "defaultValue": "-",
+                            "type": "String"
+                        },
+                        "Prompt2": {
+                            "defaultValue": "-",
+                            "type": "String"
+                        },
+                        "Prompt3": {
+                            "defaultValue": "-",
+                            "type": "String"
+                        },
+                        "Prompt4": {
+                            "defaultValue": "-",
+                            "type": "String"
+                        },
+                        "$connections": {
+                            "defaultValue": {},
+                            "type": "Object"
+                        }
+                    },
+                    "triggers": {
+                        "Recurrence": {
+                            "recurrence": {
+                                "frequency": "Month",
+                                "interval": 1
+                            },
+                            "evaluatedRecurrence": {
+                                "frequency": "Month",
+                                "interval": 1
+                            },
+                            "type": "Recurrence"
+                        }
+                    },
+                    "actions": {
+                        "Prompt2": {
+                            "runAfter": {
+                                "Prompt1": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "ApiConnection",
+                            "inputs": {
+                                "host": {
+                                    "connection": {
+                                        "name": "@parameters('$connections')['securitycopilot_3']['connectionId']"
+                                    }
+                                },
+                                "method": "post",
+                                "body": {
+                                    "PromptContent": "@{parameters('Prompt2')}\n\nIMPORTANT: The output MUST be in formatted HTML.",
+                                    "SessionId": "@body('Prompt1')?['sessionId']"
+                                },
+                                "path": "/process-prompt"
+                            }
+                        },
+                        "Prompt1": {
+                            "runAfter": {},
+                            "type": "ApiConnection",
+                            "inputs": {
+                                "host": {
+                                    "connection": {
+                                        "name": "@parameters('$connections')['securitycopilot_3']['connectionId']"
+                                    }
+                                },
+                                "method": "post",
+                                "body": {
+                                    "PromptContent": "@{parameters('Prompt1')}\n\nWorkspaceName:@{parameters('SentinelWorkspaceName')}\nSubscriptionName:@{parameters('SubscriptionName')}\nResourceGroupName:@{parameters('ResourceGroupName')}\nAzureADTenantID:@{parameters('AzureADTenantID')}\n\nIMPORTANT: The output MUST be in formatted HTML."
+                                },
+                                "path": "/process-prompt"
+                            }
+                        },
+                        "Parse-JSON-Summary": {
+                            "runAfter": {
+                                "Prompt4": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "ParseJson",
+                            "inputs": {
+                                "content": "@body('Prompt4')",
+                                "schema": {
+                                    "properties": {
+                                        "Evaluation Result Content": {
+                                            "type": "string"
+                                        },
+                                        "Evaluation Result Type": {
+                                            "type": "string"
+                                        },
+                                        "Prompt Content": {
+                                            "type": "string"
+                                        },
+                                        "SessionId": {
+                                            "type": "string"
+                                        },
+                                        "Skill Name": {},
+                                        "Skill Sources": {
+                                            "type": "array"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        },
+                        "Send_an_email_(V2)": {
+                            "runAfter": {
+                                "Initialize_variable": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "ApiConnection",
+                            "inputs": {
+                                "host": {
+                                    "connection": {
+                                        "name": "@parameters('$connections')['office365_1']['connectionId']"
+                                    }
+                                },
+                                "method": "post",
+                                "body": {
+                                    "To": "@parameters('email')",
+                                    "Subject": "@{parameters('OrganisationName')}-  Report",
+                                    "Body": "<p>@{variables('EmailFormat')}</p>",
+                                    "Importance": "Normal"
+                                },
+                                "path": "/v2/Mail"
+                            }
+                        },
+                        "Prompt4": {
+                            "runAfter": {
+                                "Prompt3": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "ApiConnection",
+                            "inputs": {
+                                "host": {
+                                    "connection": {
+                                        "name": "@parameters('$connections')['securitycopilot_3']['connectionId']"
+                                    }
+                                },
+                                "method": "post",
+                                "body": {
+                                    "PromptContent": "@{parameters('Prompt4')}\n\nIMPORTANT: The output MUST be in formatted HTML.",
+                                    "SessionId": "@body('Prompt1')?['sessionId']"
+                                },
+                                "path": "/process-prompt"
+                            }
+                        },
+                        "Prompt3": {
+                            "runAfter": {
+                                "Prompt2": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "ApiConnection",
+                            "inputs": {
+                                "host": {
+                                    "connection": {
+                                        "name": "@parameters('$connections')['securitycopilot_3']['connectionId']"
+                                    }
+                                },
+                                "method": "post",
+                                "body": {
+                                    "PromptContent": "@{parameters('Prompt3')}\n\nIMPORTANT: The output MUST be in formatted HTML.",
+                                    "SessionId": "@body('Prompt1')?['sessionId']"
+                                },
+                                "path": "/process-prompt"
+                            }
+                        },
+                        "Initialize_variable": {
+                            "runAfter": {
+                                "Parse-JSON-Summary": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "InitializeVariable",
+                            "inputs": {
+                                "variables": [
+                                    {
+                                        "name": "EmailFormat",
+                                        "type": "string",
+                                        "value": "<!DOCTYPE html>\n<html>\n<style>\n\t.notification-table-header {\n\t\twidth: auto;\n\t\tborder-top: none;\n\t\tbackground: #0078D4;\n\t\tfont-size: 11.0pt;\n\t\tcolor: white;\n\t\tfont-weight: bold;\n\t\tmargin-left: 10px;\n\t\ttext-align: left;\n\t\tborder: none;\n\t\tborder-bottom: solid white 1.5pt;\n\t}\n\n\t.notification-table-text {\n\t\tmargin-left: 5px;\n\t\twidth: 70%;\n\t\ttext-align: left;\n\t\tborder: none;\n\t\tborder-bottom: solid white 1.5pt;\n\t\tbackground: #FAFAFA;\n\t\tfont-size: 12.0pt;\n\t\theight: 20.05pt;\n\t}\n\n\t.notification-card-footer span {\n\t\tfont-size: 12.0pt;\n\t\tcolor: #000000;\n\t}\n\n\t.notification-card-footer p {\n\t\tvertical-align: baseline;\n\t}\n\n\t.notification-body {\n\t\tmargin: 0 auto;\n\t\ttext-align: center;\n\t\twidth: 950px;\n\t\tborder: 1px solid black; /* Added 'solid' and 'black' */\n\t\tborder-collapse: collapse;\n\t\tbackground-color: #CCE4F6;\n\t}\n</style>\n\n<body style=\"background-color: #dfdfdf;\">\n\t<table style=\"width:100%;\">\n\t\t<tr>\n\t\t\t<td style=\"padding:0;\">\n\t\t\t\t<div align=\"center\">\n\t\t\t\t\t<table class=\"notification-body\">\n\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t<td class=\"notification-table-header\">\n\t\t\t\t\t\t\t\t<span>Report Results</span>\n\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t<td class=\"notification-table-text\">\n\t\t\t\t\t\t\t\t<span>@{body('Parse-JSON-Summary')?['Evaluation Result Content']}</span>\n\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t<tr class=\"notification-card-footer\">\n\t\t\t\t\t\t\t<td>\n\t\t\t\t\t\t\t\t<p style=\"text-indent: 20pt;\"> <!-- Adjusted indentation -->\n\t\t\t\t\t\t\t\t\t<span style=\"font-size: 10.0pt;\"> </span>\n\t\t\t\t\t\t\t\t</p>\n\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t</tr>\n\t\t\t\t\t</table>\n\t\t\t\t</div>\n\t\t\t</td>\n\t\t</tr>\n\t</table>\n</body>\n</html>\n"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "outputs": {}
+                },
+                "parameters": {
+                    "$connections": {
+                        "value": {
+                            "securitycopilot_3": {
+                                "id": "/subscriptions/43c8298f-fa11-4cab-8e6f-7f4ba78ab52e/providers/Microsoft.Web/locations/australiaeast/managedApis/Securitycopilot",
+                                "connectionId": "[resourceId('Microsoft.Web/connections', parameters('connections_Securitycopilot_Report_Copilot_name'))]",
+                                "connectionName": "[concat('Securitycopilot-', parameters('workflows_Report_Copilot_name'))]"
+                            },
+                            "office365_1": {
+                                "id": "/subscriptions/43c8298f-fa11-4cab-8e6f-7f4ba78ab52e/providers/Microsoft.Web/locations/australiaeast/managedApis/Office365",
+                                "connectionId": "[resourceId('Microsoft.Web/connections', parameters('connections_Office365_Report_Copilot_name'))]",
+                                "connectionName": "[concat('Office365-', parameters('workflows_Report_Copilot_name'))]"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    ]
+}
