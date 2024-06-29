@@ -1,7 +1,7 @@
 # Deploy Copilot for Security
 
 ## Automated Deployment
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FAntoPorter%2FSecurityAsCode%2Fmain%2FCopilotForSecurity%2Fazuredeploy.json)
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FAntoPorter%2FCopilotForSecurity%2Fmain%2FTemplateSpec%2Fazuredeploy.json)
 
 
 ## Manual Deployment (via Template Spec)
