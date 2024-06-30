@@ -1,3 +1,10 @@
+# Logic App Promptbook with Send Email Function
+
+## Automated Deployment
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FAntoPorter%2FCopilotForSecurity%2Fmain%2FLogicApp-Promptbook%2Fazuredeploy.json)
+
+
+
 # Copilot for Security - Report Prompting
 
 Where possible when retrieving information from Sentinel and Defender XDR, specify the following details:
