@@ -2,15 +2,15 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "workflows_Report_Copilot": {
+        "workflows_Report_Copilot_name": {
             "defaultValue": "Report-Copilot",
             "type": "String"
         },
-        "connections_Office365_Report_Copilot": {
+        "connections_Office365_Report_Copilot_name": {
             "defaultValue": "Office365-Report-Copilot",
             "type": "String"
         },
-        "connections_SecurityCopilot_Report_Copilot": {
+        "connections_SecurityCopilot_Report_Copilot_name": {
             "defaultValue": "SecurityCopilot-Report-Copilot",
             "type": "String"
         }
@@ -20,7 +20,7 @@
         {
             "type": "Microsoft.Web/connections",
             "apiVersion": "2016-06-01",
-            "name": "[parameters('connections_Office365_Report_Copilot')]",
+            "name": "[parameters('connections_Office365_Report_Copilot_name')]",
             "location": "australiaeast",
             "kind": "V1",
             "properties": {
@@ -33,7 +33,7 @@
                 "customParameterValues": {},
                 "nonSecretParameterValues": {},
                 "createdTime": "2024-06-27T01:08:47.3126811Z",
-                "changedTime": "2024-06-30T00:31:04.9236095Z",
+                "changedTime": "2024-06-30T03:22:31.5777573Z",
                 "api": {
                     "name": "office365",
                     "displayName": "Office 365 Outlook",
@@ -45,7 +45,7 @@
                 },
                 "testLinks": [
                     {
-                        "requestUri": "[concat('https://management.azure.com:443/subscriptions/43c8298f-fa11-4cab-8e6f-7f4ba78ab52e/resourceGroups/rg-copilotforsecurity-prd-aue-01/providers/Microsoft.Web/connections/', parameters('connections_Office365_Report_Copilot'), '/extensions/proxy/testconnection?api-version=2016-06-01')]",
+                        "requestUri": "[concat('https://management.azure.com:443/subscriptions/43c8298f-fa11-4cab-8e6f-7f4ba78ab52e/resourceGroups/rg-copilotforsecurity-prd-aue-01/providers/Microsoft.Web/connections/', parameters('connections_Office365_Report_Copilot_name'), '/extensions/proxy/testconnection?api-version=2016-06-01')]",
                         "method": "get"
                     }
                 ]
@@ -54,7 +54,7 @@
         {
             "type": "Microsoft.Web/connections",
             "apiVersion": "2016-06-01",
-            "name": "[parameters('connections_SecurityCopilot_Report_Copilot')]",
+            "name": "[parameters('connections_SecurityCopilot_Report_Copilot_name')]",
             "location": "australiaeast",
             "kind": "V1",
             "properties": {
@@ -67,7 +67,7 @@
                 "customParameterValues": {},
                 "nonSecretParameterValues": {},
                 "createdTime": "2024-06-27T01:08:47.2662611Z",
-                "changedTime": "2024-06-29T23:31:29.9617485Z",
+                "changedTime": "2024-06-30T03:31:53.871359Z",
                 "api": {
                     "name": "securitycopilot",
                     "displayName": "Microsoft Copilot for Security",
@@ -83,23 +83,24 @@
         {
             "type": "Microsoft.Logic/workflows",
             "apiVersion": "2017-07-01",
-            "name": "[parameters('workflows_Report_Copilot')]",
+            "name": "[parameters('workflows_Report_Copilot_name')]",
             "location": "australiaeast",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/connections', parameters('connections_SecurityCopilot_Report_Copilot'))]",
-                "[resourceId('Microsoft.Web/connections', parameters('connections_Office365_Report_Copilot'))]"
+                "[resourceId('Microsoft.Web/connections', parameters('connections_SecurityCopilot_Report_Copilot_name'))]",
+                "[resourceId('Microsoft.Web/connections', parameters('connections_Office365_Report_Copilot_name'))]"
             ],
             "tags": {
                 "Created By": "Anthony Porter",
                 "CreatedDate": "06/27/2024 9:00:01 AM",
-                "hidden-SentinelTemplateName": "Report-Copilot",
+                "CreatorUPN": "portera",
+                "hidden-SentinelTemplateName": "MonthyReport-Copilot",
                 "hidden-SentinelTemplateVersion": "1.0"
             },
             "identity": {
                 "type": "SystemAssigned"
             },
             "properties": {
-                "state": "Enabled",
+                "state": "Disabled",
                 "definition": {
                     "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
                     "contentVersion": "1.0.0.0",
@@ -141,7 +142,7 @@
                             "type": "String"
                         },
                         "Prompt4": {
-                            "defaultValue": "Summarize this session in a report and call it \"Report\" with the current date, Please format all of the above copilot responses for a portion of a HTML email, it will be directly included in a SPAN element of a HTML table's cell.",
+                            "defaultValue": "Summarize this in a report and call it \"  Report\" with the current date. The following should include an executive summary and a technical summary.",
                             "type": "String"
                         },
                         "$connections": {
@@ -195,14 +196,14 @@
                                 },
                                 "method": "post",
                                 "body": {
-                                    "PromptContent": "@{parameters('Prompt1')}\n\n\nSubscriptionName:@{parameters('SubscriptionName')},\n\nResourceGroupName:@{parameters('ResourceGroupName')},\n\nWorkspaceName:@{parameters('SentinelWorkspaceName')},\n\nAzureADTenantID:@{parameters('AzureADTenantID')}"
+                                    "PromptContent": "@{parameters('Prompt1')} ,\n\n\nSubscription Name:@{parameters('SubscriptionName')} ,\n\nResource Group Name:@{parameters('ResourceGroupName')} ,\n\nWorkspace Name:@{parameters('SentinelWorkspaceName')} ,\n\nAzure AD Tenant ID:@{parameters('AzureADTenantID')}"
                                 },
                                 "path": "/process-prompt"
                             }
                         },
                         "Send_an_email_(V2)": {
                             "runAfter": {
-                                "InitializeEmailFormat": [
+                                "Compose_2": [
                                     "Succeeded"
                                 ]
                             },
@@ -217,7 +218,7 @@
                                 "body": {
                                     "To": "@parameters('email')",
                                     "Subject": "@{parameters('OrganisationName')}-  Report",
-                                    "Body": "<p>@{variables('EmailFormat')}</p>",
+                                    "Body": "<p>@{outputs('Compose_2')}</p>",
                                     "Importance": "Normal"
                                 },
                                 "path": "/v2/Mail"
@@ -239,7 +240,8 @@
                                 "method": "post",
                                 "body": {
                                     "PromptContent": "@parameters('Prompt4')",
-                                    "SessionId": "@body('Prompt1')?['sessionId']"
+                                    "SessionId": "@body('Prompt1')?['sessionId']",
+                                    "SkillName": "SummarizeData"
                                 },
                                 "path": "/process-prompt"
                             }
@@ -265,24 +267,7 @@
                                 "path": "/process-prompt"
                             }
                         },
-                        "InitializeEmailFormat": {
-                            "runAfter": {
-                                "Parse-JSON-Prompt4": [
-                                    "Succeeded"
-                                ]
-                            },
-                            "type": "InitializeVariable",
-                            "inputs": {
-                                "variables": [
-                                    {
-                                        "name": "EmailFormat",
-                                        "type": "string",
-                                        "value": "<!DOCTYPE html>\n<html>\n<style>\n\t.notification-table-header {\n\t\twidth: auto;\n\t\tborder-top: none;\n\t\tbackground: #0078D4;\n\t\tfont-size: 11.0pt;\n\t\tcolor: white;\n\t\tfont-weight: bold;\n\t\tmargin-left: 10px;\n\t\ttext-align: left;\n\t\tborder: none;\n\t\tborder-bottom: solid white 1.5pt;\n\t}\n\n\t.notification-table-text {\n\t\tmargin-left: 5px;\n\t\twidth: 70%;\n\t\ttext-align: left;\n\t\tborder: none;\n\t\tborder-bottom: solid white 1.5pt;\n\t\tbackground: #FAFAFA;\n\t\tfont-size: 12.0pt;\n\t\theight: 20.05pt;\n\t}\n\n\t.notification-card-footer span {\n\t\tfont-size: 12.0pt;\n\t\tcolor: #000000;\n\t}\n\n\t.notification-card-footer p {\n\t\tvertical-align: baseline;\n\t}\n\n\t.notification-body {\n\t\tmargin: 0 auto;\n\t\ttext-align: center;\n\t\twidth: 1000px;\n\t\tborder: 1px black;\n\t\tborder-collapse: collapse;\n\t\tbackground-color: #CCE4F6;\n\t}\n</style>\n\n<body style=\"background-color: #dfdfdf;\">\n\t<table style=\"width:100%;\">\n\t\t<tr>\n\t\t\t<td style=\"padding:0;\">\n\t\t\t\t<div align=\"center\">\n\t\t\t\t\t<table class=\"notification-body\">\n\t\t\t\t\t\t<tr style=\"border: 1px grey; border-top:none;\">\n\t\t\t\t\t\t\t<td>\n\t\t\t\t\t\t\t\t<p style='font-size:5.0pt;'>\n\t\t\t\t\t\t\t\t\t<span></span>\n\t\t\t\t\t\t\t\t</p>\n\t\t\t\t\t\t\t\t<table style='width:590px;margin:0 auto;border-collapse:collapse;'>\n\t\t\t\t\t\t\t\t\t<tr class=\"notification-card-footer\">\n\t\t\t\t\t\t\t\t\t\t<td><p style='text-align:left; font-size:12.0pt;'><b>@{parameters('OrganisationName')}</b></p>\n\t\t\t\t\t\t\t\t\t\t\t<p style='text-align:left; font-size:12.0pt;'>Report Details</p>\n\t\t\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t\t</tr>\n\n\t\t\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t\t\t\t<td class=\"notification-table-header\">\n\t\t\t\t\t\t\t\t\t\t\t<span>&nbsp; Summary:</span>\n\t\t\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t\t\t\t<td class=\"notification-table-text\">\n\t\t\t\t\t\t\t\t\t\t\t@{body('Parse-JSON-Prompt4')?['Evaluation Result Content']}\n\t\t\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t\t</tr>\n         <tr class=\"notification-card-footer\">\n\t\t\t\t\t\t\t\t\t\t<td> \n\t\t\t\t\t\t\t\t\t\t\t<p style='text-indent:6.0pt;'>\n\t\t\t\t\t\t\t\t\t\t\t\t<span style='font-size:1.0pt;'>&nbsp;</span>\n           </p>\n\t\t\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t\t</tr>\n\t\n\t\t\t\t\t\t\t\t</table>\n\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t</tr>\n\t\t\t\t\t</table>\n\t\t\t\t</div>\n\t\t\t</td>\n\t\t</tr>\n\t</table>\n</body>\n</html>"
-                                    }
-                                ]
-                            }
-                        },
-                        "Parse-JSON-Prompt4": {
+                        "Parse-JSON": {
                             "runAfter": {
                                 "Prompt4": [
                                     "Succeeded"
@@ -313,6 +298,24 @@
                                     "type": "object"
                                 }
                             }
+                        },
+                        "Compose_2": {
+                            "runAfter": {
+                                "Compose": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "Compose",
+                            "inputs": "@decodeUriComponent(replace(encodeUriComponent(outputs('Compose')), '%0A', '%3Cbr%3E'))"
+                        },
+                        "Compose": {
+                            "runAfter": {
+                                "Parse-JSON": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "Compose",
+                            "inputs": "@body('Parse-JSON')?['Evaluation Result Content']"
                         }
                     },
                     "outputs": {}
@@ -322,13 +325,13 @@
                         "value": {
                             "securitycopilot_3": {
                                 "id": "/subscriptions/43c8298f-fa11-4cab-8e6f-7f4ba78ab52e/providers/Microsoft.Web/locations/australiaeast/managedApis/SecurityCopilot",
-                                "connectionId": "[resourceId('Microsoft.Web/connections', parameters('connections_SecurityCopilot_Report_Copilot'))]",
-                                "connectionName": "[concat('SecurityCopilot-', parameters('workflows_Report_Copilot'))]"
+                                "connectionId": "[resourceId('Microsoft.Web/connections', parameters('connections_SecurityCopilot_Report_Copilot_name'))]",
+                                "connectionName": "[concat('SecurityCopilot-', parameters('workflows_Report_Copilot_name'))]"
                             },
                             "office365_1": {
                                 "id": "/subscriptions/43c8298f-fa11-4cab-8e6f-7f4ba78ab52e/providers/Microsoft.Web/locations/australiaeast/managedApis/Office365",
-                                "connectionId": "[resourceId('Microsoft.Web/connections', parameters('connections_Office365_Report_Copilot'))]",
-                                "connectionName": "[concat('Office365-', parameters('workflows_Report_Copilot'))]"
+                                "connectionId": "[resourceId('Microsoft.Web/connections', parameters('connections_Office365_Report_Copilot_name'))]",
+                                "connectionName": "[concat('Office365-', parameters('workflows_Report_Copilot_name'))]"
                             }
                         }
                     }
