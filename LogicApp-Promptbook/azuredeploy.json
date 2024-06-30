@@ -92,8 +92,7 @@
             "tags": {
                 "Created By": "Anthony Porter",
                 "CreatedDate": "06/27/2024 9:00:01 AM",
-                "CreatorUPN": "portera",
-                "hidden-SentinelTemplateName": "MonthyReport-Copilot",
+                "hidden-SentinelTemplateName": "Report-Copilot",
                 "hidden-SentinelTemplateVersion": "1.0"
             },
             "identity": {
