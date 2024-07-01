@@ -63,7 +63,7 @@ Once Complete, you will be able to Edit and Save the Logic App Parameters and co
 - All Prompts within the Logic App are related to the Session ID created by Prompt 1. This ensures that all prompts are using the same prior context and grounding information.
 - The Output of Prompt 4 is what will be captured in the Email Body to be sent.
 
-**NOTE: If you do not plan to use some of the Parameters included in Prompt 1, remove them from the prompt content to avoid confusing Copilot for Security. This will occasionally cause Evaluation Result Type: "Error" upon running the Logic App.
+**NOTE: If you do not plan to use some of the Parameters included in Prompt 1, remove them from the prompt content to avoid confusing Copilot for Security. This will occasionally cause Evaluation Result Type: "Error" upon running the Logic App.**
 
 ### Email Output
 
