@@ -1,54 +1,76 @@
 {
-    "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json",
+    "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
         "capacityName": {
-            "type": "string",
-            "defaultValue": "copilotcompute"
+            "type": "String",
+            "metadata": {
+                "description": "This name will be displayed in the Security Copilot portal and Azure portal. Make sure it is unique and identifiable. Changing names can be difficult."
+            }
         },
-        "location": {
-            "type": "string",
+        "capacityRegion": {
             "defaultValue": "australiaeast",
             "allowedValues": [
                 "australiaeast",
                 "eastus",
                 "westeurope",
                 "uksouth"
-            ]
+            ],
+            "type": "String",
+            "metadata": {
+                "description": "This is where data related to the capacity resource is stored. Not customer data."
+            }
         },
-        "numberOfUnits": {
-            "type": "int",
-            "defaultValue": 1
+        "promptEvaluationLocation": {
+            "defaultValue": "ANZ",
+            "allowedValues": [
+                "US",
+                "UK",
+                "EU",
+                "ANZ"
+            ],
+            "type": "String",
+            "metadata": {
+                "description": "This selection will affect where your prompts are evaluated and how your usage is priced."
+            }
         },
         "crossGeoCompute": {
-            "type": "string",
             "defaultValue": "NotAllowed",
             "allowedValues": [
                 "NotAllowed",
                 "Allowed"
-            ]
+            ],
+            "type": "String",
+            "metadata": {
+                "description": "If this location is busy, allow Copilot to evaluate prompts anywhere in the world (recommended for optimal performance)."
+            }
         },
-        "geo": {
-            "type": "string",
-            "defaultValue": "ANZ",
-            "allowedValues": [
-                "ANZ",
-                "US",
-                "UK",
-                "EU"
-            ]
+        "numberOfScus": {
+            "defaultValue": 1,
+            "type": "Int",
+            "metadata": {
+                "description": "You will be able to increase or decrease the number of units at any time."
+            }
+        },
+        "Tags": {
+            "defaultValue": {},
+            "type": "Object",
+            "metadata": {
+                "description": "Additional Resource Tags in json object format. Ex: {\"Environment\": \"Dev\",\"Project\": \"Tutorial\"}"
+            }
         }
     },
     "resources": [
         {
+            "type": "Microsoft.SecurityCopilot/capacities",
             "apiVersion": "2023-12-01-preview",
             "name": "[parameters('capacityName')]",
-            "location": "[parameters('location')]",
-            "type": "Microsoft.SecurityCopilot/capacities",
+            "location": "[parameters('capacityRegion')]",
+            "tags": "[parameters('Tags')]",
             "properties": {
-                "numberOfUnits": "[parameters('numberOfUnits')]",
                 "crossGeoCompute": "[parameters('crossGeoCompute')]",
-                "geo": "[parameters('geo')]"
+                "geo": "[parameters('promptEvaluationLocation')]",
+                "numberOfUnits": "[parameters('numberOfsCUs')]"
             }
         }
     ]
