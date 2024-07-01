@@ -21,11 +21,11 @@ For More Details: [TemplateSpec](https://github.com/AntoPorter/CopilotForSecurit
 ### Automated Deployment
 [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FAntoPorter%2FCopilotForSecurity%2Fmain%2FLogicApp-Promptbook%2Fazuredeploy.json)
 
-For More Details: [TemplateSpec](https://github.com/AntoPorter/CopilotForSecurity/tree/main/LogicApp-Promptbook).
+For More Details: [LogicApp-Promptbook](https://github.com/AntoPorter/CopilotForSecurity/tree/main/LogicApp-Promptbook).
 
 
 
-## **Attention Customers!**
+## Attention Customers
 
 **Disclaimer: When utilizing Logic Apps on Copilot, please be aware that it may result in increased consumption of Secure Compute Units (SCUs). We recommend closely monitoring SCU usage to optimize resource management.**
 
