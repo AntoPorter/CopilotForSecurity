@@ -62,6 +62,9 @@ Once Complete, you will be able to Edit and Save the Logic App Parameters and co
 
 - All Prompts within the Logic App are related to the Session ID created by Prompt 1. This ensures that all prompts are using the same prior context and grounding information.
 - The Output of Prompt 4 is what will be captured in the Email Body to be sent.
+
+**NOTE: If you do not plan to use some of the Parameters included in Prompt 1, remove them from the prompt content to avoid confusing Copilot for Security. This will occasionally cause Evaluation Result Type: "Error" upon running the Logic App.
+
 ### Email Output
 
 Upon the successful Logic App run, the "Email" recipient should receive a Markdown style email with relative summary information as to your investigation.
@@ -128,6 +131,20 @@ This prompt can help you keep track of incidents that are currently being invest
 > "Give me a summary of all security incidents in the last quarter."
 
 This prompt can help you generate an Incident Investigation report, which can provide a comprehensive view of all security incidents.
+
+## Examples of Prompts for Microsoft Intune
+
+> "Show me details for device XYZ.”
+
+This prompt retrieves all relevant properties of the specified device, including its name, ID, manufacturer, enrollment date, primary user, device type (e.g., laptop, mobile), and compliance status.
+
+> “Compare device XYZ with device ABC.”
+ 
+By comparing these two devices, you can identify any differences in their configurations, compliance status, or other relevant attributes. This helps troubleshoot issues and understand why one device is functioning correctly while another isn’t.
+
+> “Open Microsoft Defender for device XYZ.”
+
+This prompt provides a direct link to the corresponding device in Microsoft Defender. From there, you can take further security actions, investigate threats, and analyze security events.
 
 ## Examples of Prompts for Reporting Purposes
 The following prompt suggestions are based around potential reporting capabilities via Copilot for Security.
