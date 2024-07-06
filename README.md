@@ -1,15 +1,16 @@
 # Welcome 
-Welcome to my Copilot for Security Repository!
 
+Welcome to my Copilot for Security Repository!
 Microsoft Copilot for Security is a generative AI-powered assistant for daily operations in security and IT that empowers teams to protect at the speed and scale of AI.
+
+This repository contains my contributions to the community and will be updated regularly.
+## Resources
 
 - [https://learn.microsoft.com/en-us/security-copilot/](https://learn.microsoft.com/en-us/security-copilot/)
 - [https://learn.microsoft.com/en-us/security-copilot/get-started-security-copilot](https://learn.microsoft.com/en-us/security-copilot/get-started-security-copilot)
 - [https://learn.microsoft.com/en-us/security-copilot/plugin_overview](https://learn.microsoft.com/en-us/security-copilot/plugin_overview)
 - [https://learn.microsoft.com/en-us/security-copilot/connectors-overview](https://learn.microsoft.com/en-us/security-copilot/connectors-overview)
 - [https://aka.ms/copilotforsecurity](https://aka.ms/copilotforsecurity)
-
-The following is a collection of my contributions to the community and will be updated regularly.
 
 ## Deploy Copilot for Security via Template Spec
 ### Automated Deployment
@@ -27,6 +28,6 @@ For More Details: [LogicApp-Promptbook](https://github.com/AntoPorter/CopilotFor
 
 ## Attention Customers
 
-**Disclaimer: When utilizing Logic Apps on Copilot, please be aware that it may result in increased consumption of Secure Compute Units (SCUs). We recommend closely monitoring SCU usage to optimize resource management.**
+**Disclaimer**: When utilizing Logic Apps on Copilot, please be aware that it may result in increased consumption of Secure Compute Units (SCUs). We recommend closely monitoring SCU usage to optimize resource management.
 
-**Technical Disclaimer: Logic Apps, SCU Usage, and Best Practices**
+**Technical Disclaimer**: Logic Apps, SCU Usage, and Best Practices
