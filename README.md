@@ -25,9 +25,12 @@ For More Details: [TemplateSpec](https://github.com/AntoPorter/CopilotForSecurit
 For More Details: [LogicApp-Promptbook](https://github.com/AntoPorter/CopilotForSecurity/tree/main/LogicApp-Promptbook).
 
 
-
 ## Attention Customers
 
 **Disclaimer**: When utilizing Logic Apps on Copilot, please be aware that it may result in increased consumption of Secure Compute Units (SCUs). We recommend closely monitoring SCU usage to optimize resource management.
 
 **Technical Disclaimer**: Logic Apps, SCU Usage, and Best Practices
+
+## Contact
+
+For support or questions, please contact me on [LinkedIn](https://www.linkedin.com/in/anthonyantoporter/).
